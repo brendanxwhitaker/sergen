@@ -39,8 +39,8 @@ from pynput._util.win32 import (
     MOUSEINPUT,
     SendInput,
     SystemHook)
-from . import _base
-
+from base import Controller as BaseController
+from base import Listener as BaseListener
 
 class Button(enum.Enum):
     """The various buttons.
@@ -51,7 +51,7 @@ class Button(enum.Enum):
     right = (MOUSEINPUT.RIGHTUP, MOUSEINPUT.RIGHTDOWN)
 
 
-class Controller(NotifierMixin, _base.Controller):
+class Controller(NotifierMixin, BaseController):
     __GetCursorPos = windll.user32.GetCursorPos
     __SetCursorPos = windll.user32.SetCursorPos
 
@@ -119,7 +119,7 @@ class Controller(NotifierMixin, _base.Controller):
 
 
 @Controller._receiver
-class Listener(ListenerMixin, _base.Listener):
+class Listener(ListenerMixin, BaseListener):
     #: The Windows hook ID for low level mouse events, ``WH_MOUSE_LL``
     _EVENTS = 14
 
