@@ -1,7 +1,6 @@
 # sergen
 
-A library for rapid automatic generation of sample time series data via mouse input. The repo name "sergen" stands for series generation. 
-
+A library for rapid automatic generation of sample time series data via mouse input. 
 
 ### TODO
 
@@ -18,4 +17,8 @@ A library for rapid automatic generation of sample time series data via mouse in
 - [ ] Write tests.
 - [ ] Write note in README explaining why `gen.py` does not have proper module structure.
 - [ ] Lint. 
-- [ ] Add codecov. 
+- [ ] Add codecov.
+
+
+Note: the repo name "sergen" stands for series generation. 
+
