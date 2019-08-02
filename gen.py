@@ -35,6 +35,7 @@ index = 0
 start = 0
 end = 0
 
+print("Note: this script requires mouse input.")
 """
 We use global variables to avoid having
 to peer into ``pynput`` and mess with their
