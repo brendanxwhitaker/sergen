@@ -1,10 +1,37 @@
 from pynput.mouse import Listener
+from typing import List
 import numpy as np
 import random
 
-# Expand mode and Repeat mode.
+"""
+Constants:
+    **REPEAT**: ``bool``:
+        Whether to repeat/loop the sequence to extend the 
+        number of time steps, or to expand it by interpolation. 
+    **TIME_STEPS: ``int``:
+        Desired number of time steps in the time series. 
+"""
+
+"""
+Globals variables:
+    **coord_list**: ``List[List[int]]`` of shape ``(raw_steps, 2)``: 
+        Planar coordinates of the captured mouse positions from the 
+        ``on_move`` and ``on_click`` events. 
+    **index**: ``int``:
+        Number of (not necessarily unique) coordinate positions seen 
+        so far. 
+    **start**: ``int``: 
+        Index of first click depress. 
+    **end**: ``int``:
+        Index of first click release. 
+        
+"""
+
+# Constants.
 REPEAT = True
 TIME_STEPS = 1000
+
+# Globals.
 coord_list = []
 index = 0
 start = 0
@@ -77,4 +104,5 @@ while raw_steps > TIME_STEPS:
 
 print("coords shape:", coords.shape)
 print(coords)
-np.savetxt("coords.csv", coords, delimiter=",")
+name = input("Enter a path for the saved file: ")
+np.savetxt(name, coords, delimiter=",")
