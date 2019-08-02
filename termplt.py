@@ -13,4 +13,3 @@ y = list(series[:,1]) # Assumes 2-dimensional data.
 x = [i for i in range(series.shape[0])]
 plot(x, y) 
 print(series.shape)
-
