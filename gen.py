@@ -101,5 +101,5 @@ while raw_steps > TIME_STEPS:
     coords = np.delete(coords, del_loc, 0)
     raw_steps = coords.shape[0]
 
-name = input("Enter a path for the saved file: ")
+name = input("Enter a path for the saved file (include `.csv`): ")
 np.savetxt(name, coords, delimiter=",")
