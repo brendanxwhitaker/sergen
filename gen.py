@@ -49,18 +49,17 @@ coords = np.array(coord_list)
 raw_steps = coords.shape[0]
 coords = coords.astype(float)
 
+# Interpolate time series. 
 if REPEAT:
     full_reps = TIME_STEPS // raw_steps
     reps = [coords] * full_reps
     coords = np.concatenate(reps)
     raw_steps = coords.shape[0]
-    print("Shape after concat1:", coords.shape)
 
 while REPEAT and raw_steps < TIME_STEPS:
     diff = TIME_STEPS - raw_steps
     coords = np.concatenate([coords, coords[:diff]])
     raw_steps = coords.shape[0]
-    print("Shape after concat2:", coords.shape)
 
 while not REPEAT and raw_steps < TIME_STEPS:
     add_loc = random.randint(0,raw_steps - 2) # Inclusive right index. 
@@ -70,6 +69,7 @@ while not REPEAT and raw_steps < TIME_STEPS:
     coords = np.insert(coords, add_loc + 1, mean, 0)
     raw_steps = coords.shape[0]
 
+# Filter time series. 
 while raw_steps > TIME_STEPS:
     del_loc = random.randint(0,raw_steps - 1)
     coords = np.delete(coords, del_loc, 0)
@@ -77,3 +77,4 @@ while raw_steps > TIME_STEPS:
 
 print("coords shape:", coords.shape)
 print(coords)
+np.savetxt("coords.csv", coords, delimiter=",")
