@@ -4,8 +4,8 @@ A library for rapid automatic generation of sample time series data via mouse in
 
 ### TODO
 
-- [ ] Make `gen.py` script read filename input from bash. 
-- [ ] Make directory for saved `.csv` files. 
+- [x] Make `gen.py` script read filename input from bash. 
+- [x] Make directory for saved `.csv` files. 
 - [ ] Build script for processing and graphing saved files.
 - [ ] Remove x-axis from numpy array. 
 - [ ] Print with `gnuplotlib` (supports GNU/Linux systems only). 
