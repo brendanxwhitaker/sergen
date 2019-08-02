@@ -4,16 +4,15 @@ import numpy as np
 import random
 
 """
+DOCSTRING
 Constants:
     **REPEAT**: ``bool``:
         Whether to repeat/loop the sequence to extend the 
         number of time steps, or to expand it by interpolation. 
     **TIME_STEPS: ``int``:
         Desired number of time steps in the time series. 
-"""
 
-"""
-Globals variables:
+Global variables:
     **coord_list**: ``List[List[int]]`` of shape ``(raw_steps, 2)``: 
         Planar coordinates of the captured mouse positions from the 
         ``on_move`` and ``on_click`` events. 
@@ -23,8 +22,7 @@ Globals variables:
     **start**: ``int``: 
         Index of first click depress. 
     **end**: ``int``:
-        Index of first click release. 
-        
+        Index of first click release.       
 """
 
 # Constants.
@@ -102,7 +100,5 @@ while raw_steps > TIME_STEPS:
     coords = np.delete(coords, del_loc, 0)
     raw_steps = coords.shape[0]
 
-print("coords shape:", coords.shape)
-print(coords)
 name = input("Enter a path for the saved file: ")
 np.savetxt(name, coords, delimiter=",")
