@@ -26,8 +26,9 @@ and follow the instructions.
 
 Run the command:
 ```
-python3 plot.py --filepath <path_to_file> --
+python3 plot.py --filepath <path_to_file>
 ```
+to generate a `.svg` graph. 
 
 ### TODO
 
