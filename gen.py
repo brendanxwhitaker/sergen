@@ -1,7 +1,9 @@
-from pynput.mouse import Listener
-from typing import List
-import numpy as np
 import random
+import numpy as np
+import pandas as pd
+
+from typing import List
+from pynput.mouse import Listener
 
 """
 DOCSTRING
@@ -101,5 +103,6 @@ while raw_steps > TIME_STEPS:
     coords = np.delete(coords, del_loc, 0)
     raw_steps = coords.shape[0]
 
-name = input("Enter a path for the saved file: ")
-np.savetxt(name, coords, delimiter=",")
+name = input("Enter a path for the saved file (include `.csv`): ")
+coords_df = pd.DataFrame(coords)
+coords_df.to_csv(name)
