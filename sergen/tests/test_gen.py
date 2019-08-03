@@ -24,7 +24,7 @@ class TestGen(TestCase):
         start = 0
         end = 0
 
-        on_move(0,0)
-        assert coord_list = [[0,0]] 
+        gen.on_move(0,0)
+        assert coord_list == [[0,0]] 
         
     

@@ -29,17 +29,6 @@ Global variables:
         Index of first click release.       
 """
 
-# Constants.
-RESHAPE = True
-REPEAT = True
-TIME_STEPS = 500
-
-# Globals.
-coord_list = []
-index = 0
-start = 0
-end = 0
-
 def on_move(x: int, y: int) -> None:
     global coord_list
     global index
@@ -69,7 +58,10 @@ def on_click(x: int, y: int, button, pressed: bool) -> bool:
         # Stop listener
         return False
 
-def resize(coords: np.ndarray, raw_steps: int, REPEAT: bool) -> np.ndarray:
+def resize(coords: np.ndarray, 
+           raw_steps: int, 
+           REPEAT: bool, 
+           TIME_STEPS: int) -> np.ndarray:
     """Resizes first dim of coordinate array. """
     # Interpolate time series. 
     if REPEAT:
@@ -101,13 +93,8 @@ def resize(coords: np.ndarray, raw_steps: int, REPEAT: bool) -> np.ndarray:
 
 print("Note: this script requires mouse input.")
 sys.stdout.flush()
-"""
-We use global variables to avoid having
-to peer into ``pynput`` and mess with their
-``on_<event>`` functions. 
-"""
 
-def main(): 
+def main(RESHAPE: bool, REPEAT: bool, TIME_STEPS: int) -> None:
     coord_list = coord_list[start:end]
     coords = np.array(coord_list)
     raw_steps = coords.shape[0]
@@ -129,7 +116,27 @@ def main():
     print(coords_df)
 
 if __name__ == "__main__":
+    # Constants.
+    RESHAPE = True
+    REPEAT = True
+    TIME_STEPS = 500
+
+    """
+    We use global variables to avoid having
+    to peer into ``pynput`` and mess with their
+    ``on_<event>`` functions. 
+    """
+    # Globals.
+    global coord_list
+    global index
+    global start
+    global end
+    coord_list = []
+    index = 0
+    start = 0
+    end = 0
+
     import listener
     listener.listen(on_move, on_click)
     print(coord_list)
-    main()
+    main(RESHAPE, REPEAT, TIME_STEPS)
