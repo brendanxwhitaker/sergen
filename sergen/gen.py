@@ -95,13 +95,17 @@ print("Note: this script requires mouse input.")
 sys.stdout.flush()
 
 def main(RESHAPE: bool, REPEAT: bool, TIME_STEPS: int) -> None:
+    global coord_list
+    global index
+    global start
+    global end
     coord_list = coord_list[start:end]
     coords = np.array(coord_list)
     raw_steps = coords.shape[0]
     coords = coords.astype(float)
 
     if RESHAPE:
-        coords = resize(coords, raw_steps, REPEAT)
+        coords = resize(coords, raw_steps, REPEAT, TIME_STEPS)
 
     name = input("Enter a path for the saved file (include `.csv`): ")
     coords_df = pd.DataFrame(coords)
