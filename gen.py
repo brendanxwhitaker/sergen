@@ -37,9 +37,9 @@ Global variables:
 """
 
 # Constants.
-RESHAPE = False
+RESHAPE = True
 REPEAT = True
-TIME_STEPS = 1000
+TIME_STEPS = 10000
 
 # Globals.
 coord_list = []
