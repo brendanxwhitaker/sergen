@@ -4,8 +4,8 @@ import random
 import numpy as np
 import pandas as pd
 
-from screeninfo import get_monitors
 from typing import List
+from screeninfo import get_monitors
 try:
     from pynput.mouse import Listener
 except:
@@ -39,7 +39,7 @@ Global variables:
 # Constants.
 RESHAPE = True
 REPEAT = True
-TIME_STEPS = 10000
+TIME_STEPS = 500
 
 # Globals.
 coord_list = []
@@ -58,7 +58,8 @@ def on_move(x, y):
     global coord_list
     global index
     coord_list.append((x, y))
-    print(x, ",", y)
+    print('Pointer moved to {0}'.format((x, y)))
+    sys.stdout.flush()
     index += 1
 
 def on_click(x, y, button, pressed):
@@ -66,6 +67,9 @@ def on_click(x, y, button, pressed):
     global index
     global start
     global end
+    print('{0} at {1}'.format(
+        'Pressed' if pressed else 'Released',(x, y)))
+    sys.stdout.flush()
     if pressed:
         coord_list.append((x, y))
         index += 1
