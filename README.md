@@ -11,8 +11,8 @@ A library for rapid automatic generation of sample time series data via mouse in
 - [x] Print with `terminalplot`.  
 - [x] Change saved `.csv` to a single column.
 - [x] Print with `plotplotplot` library.
-- [ ] Verify that `.csv` files with less than 10,000 (100,000?) rows with fit in the github repo.
-- [ ] Add `argparse` support which reads filename from `stdin` if no argument is passed, and uses specified filename otherwise. 
+- [x] Verify that `.csv` files with less than 100,000 rows with fit in the github repo.
+- [x] Add `argparse` support which reads filename from `stdin` if no argument is passed, and uses specified filename otherwise. (Veto)
 - [ ] Update README with usage information.
 - [ ] Make `tests` directory. 
 - [ ] Write tests.
