@@ -22,7 +22,7 @@ python3 termplt.py
 ```
 and follow the instructions.
 
-### Plotting in `matplotlib` (`.svg` files)
+### Plotting in svg files in `matplotlib`
 
 Run the command:
 ```
@@ -40,7 +40,7 @@ python3 plot.py --filepath <path_to_file> --
 - [x] Print with `plotplotplot` library.
 - [x] Verify that `.csv` files with less than 100,000 rows with fit in the github repo.
 - [x] Add `argparse` support which reads filename from `stdin` if no argument is passed, and uses specified filename otherwise. (Veto)
-- [ ] Update README with usage information.
+- [x] Update README with usage information.
 - [x] Make `tests` directory. 
 - [ ] Write tests.
 - [x] Write note in README explaining why `gen.py` does not have proper module structure.
