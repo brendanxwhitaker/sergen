@@ -114,5 +114,6 @@ while raw_steps > TIME_STEPS:
 name = input("Enter a path for the saved file (include `.csv`): ")
 coords_df = pd.DataFrame(coords)
 coords_df.columns = ['x', 'y']
-coords_df.drop('x', 0)
+coords_df = coords_df.drop(['x'], 1)
 coords_df.to_csv(name, index=False)
+print(coords_df)
