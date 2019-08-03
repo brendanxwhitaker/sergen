@@ -1,8 +1,10 @@
 import sys
 import random
+
 import numpy as np
 import pandas as pd
 
+from screeninfo import get_monitors
 from typing import List
 try:
     from pynput.mouse import Listener
@@ -115,5 +117,10 @@ name = input("Enter a path for the saved file (include `.csv`): ")
 coords_df = pd.DataFrame(coords)
 coords_df.columns = ['x', 'y']
 coords_df = coords_df.drop(['x'], 1)
+for m in get_monitors():
+    height = m.height
+    width = m.width
+
+coords_df['y'] = height - coords_df['y']
 coords_df.to_csv(name, index=False)
 print(coords_df)
