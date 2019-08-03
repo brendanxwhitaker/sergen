@@ -54,34 +54,6 @@ We use global variables to avoid having
 to peer into ``pynput`` and mess with their
 ``on_<event>`` functions. 
 """
-def on_move(x, y):
-    global coord_list
-    global index
-    coord_list.append((x, y))
-    print('Pointer moved to {0}'.format((x, y)))
-    sys.stdout.flush()
-    index += 1
-
-def on_click(x, y, button, pressed):
-    global coord_list
-    global index
-    global start
-    global end
-    print('{0} at {1}'.format(
-        'Pressed' if pressed else 'Released',(x, y)))
-    sys.stdout.flush()
-    if pressed:
-        coord_list.append((x, y))
-        index += 1
-        start = index
-        print("Click down.")
-    else:
-        coord_list.append((x, y))
-        index += 1
-        end = index
-        print("Click up.")
-        # Stop listener
-        return False
 
 # Collect events until released
 with Listener(
@@ -97,6 +69,9 @@ raw_steps = coords.shape[0]
 coords = coords.astype(float)
 
 if RESHAPE:
+
+def resize(coords: np.ndarray:, raw_steps: int) -> np.ndarray:
+    """Resizes first dim of coordinate array. """
     # Interpolate time series. 
     if REPEAT:
         full_reps = TIME_STEPS // raw_steps
