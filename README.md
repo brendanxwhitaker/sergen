@@ -2,6 +2,33 @@
 
 A library for rapid automatic generation of sample time series data via mouse input. 
 
+Requires a machine with a display and support for mouse input. 
+
+### Generating time series
+
+To generate time series, run the command:
+```
+python3 gen.py
+```
+and follow the instructions. Click and drag anywhere to draw a figure (script tracks mouse movement). The portion on mouse movement between first depress and first release is used to create time series data. The x-position is not used, hence to make interpretable movements, only move the mouse rightward, up, and down. 
+
+Saving to the `series/` directory is recommended. 
+
+### Plotting in terminal with `terminalplot`
+
+To plot in the terminal, run the command: 
+```
+python3 termplt.py
+```
+and follow the instructions.
+
+### Plotting in `matplotlib` (`.svg` files)
+
+Run the command:
+```
+python3 plot.py --filepath <path_to_file> --
+```
+
 ### TODO
 
 - [x] Make `gen.py` script read filename input from bash. 
@@ -14,12 +41,13 @@ A library for rapid automatic generation of sample time series data via mouse in
 - [x] Verify that `.csv` files with less than 100,000 rows with fit in the github repo.
 - [x] Add `argparse` support which reads filename from `stdin` if no argument is passed, and uses specified filename otherwise. (Veto)
 - [ ] Update README with usage information.
-- [ ] Make `tests` directory. 
+- [x] Make `tests` directory. 
 - [ ] Write tests.
-- [ ] Write note in README explaining why `gen.py` does not have proper module structure.
+- [x] Write note in README explaining why `gen.py` does not have proper module structure.
 - [ ] Lint. 
 - [ ] Add codecov.
 
+Lacks proper python3 module structure by heuristic and for simplicity. 
 
 Note: the repo name "sergen" stands for series generation. 
 
