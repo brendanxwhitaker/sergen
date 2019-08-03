@@ -1,8 +1,10 @@
 from terminalplot import plot
 import pandas as pd
 import numpy as np
+import platform
 import os
 
+assert platform.system() == 'Linux'
 assert os.path.isdir("series/")
 print("The following files are available to print (by entering `series/<name>.csv`):")
 os.system("ls series/")
