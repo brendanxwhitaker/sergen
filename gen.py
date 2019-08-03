@@ -1,3 +1,4 @@
+import sys
 import random
 import numpy as np
 import pandas as pd
@@ -38,6 +39,7 @@ start = 0
 end = 0
 
 print("Note: this script requires mouse input.")
+sys.stdout.flush()
 """
 We use global variables to avoid having
 to peer into ``pynput`` and mess with their
