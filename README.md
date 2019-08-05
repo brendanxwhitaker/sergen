@@ -43,7 +43,7 @@ to generate a `.svg` graph.
 - [x] Add `argparse` support which reads filename from `stdin` if no argument is passed, and uses specified filename otherwise. (Veto)
 - [x] Update README with usage information.
 - [x] Make `tests` directory. 
-- [ ] Write tests.
+- [x] Write tests.
 - [x] Write note in README explaining why `gen.py` does not have proper module structure.
 - [ ] Lint. 
 - [ ] Add codecov.
