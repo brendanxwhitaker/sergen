@@ -115,7 +115,8 @@ def graph(dfs, ylabels, filename, column_counts, phase, save_path):
                                                    axis_font=prop3,
                                                    legend_font=prop4,
                                                    text_opacity=text_opacity,
-                                                   xaxis_opacity=xaxis_opacity)
+                                                   xaxis_opacity=xaxis_opacity,
+                                                   column_count=column_counts[i])
 
     # add axis labels
     plt.xlabel(xlabel, fontproperties=prop3, fontsize=x_axis_label_size, alpha=text_opacity)

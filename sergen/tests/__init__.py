@@ -1,4 +1,4 @@
 try:
     from sergen import gen, listener
-except:
+except ImportError:
     from .. import gen, listener
