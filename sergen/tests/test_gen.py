@@ -15,38 +15,38 @@ class TestGen(TestCase):
         raw_steps = 143
         REPEAT = True
         TIME_STEPS = 1000
-        res = gen.resize(coords, raw_steps, REPEAT, TIME_STEPS) 
+        res = gen.resize(coords, raw_steps, REPEAT, TIME_STEPS)
         assert tuple(res.shape) == (1000, 2)
         np.testing.assert_array_almost_equal(res[142], res[857])
-    
+
     def test_resize_no_repeat(self):
         coords = np.random.rand(143, 2)
         raw_steps = 143
         REPEAT = False
         TIME_STEPS = 1000
-        res = gen.resize(coords, raw_steps, REPEAT, TIME_STEPS) 
+        res = gen.resize(coords, raw_steps, REPEAT, TIME_STEPS)
         assert tuple(res.shape) == (1000, 2)
-    
+
     def test_resize_truncate_repeat(self):
         coords = np.random.rand(1430, 2)
         raw_steps = 1430
         REPEAT = True
         TIME_STEPS = 1000
-        res = gen.resize(coords, raw_steps, REPEAT, TIME_STEPS) 
+        res = gen.resize(coords, raw_steps, REPEAT, TIME_STEPS)
         assert tuple(res.shape) == (1000, 2)
-    
+
     def test_resize_truncate_no_repeat(self):
         coords = np.random.rand(1430, 2)
         raw_steps = 1430
         REPEAT = False
         TIME_STEPS = 1000
-        res = gen.resize(coords, raw_steps, REPEAT, TIME_STEPS) 
+        res = gen.resize(coords, raw_steps, REPEAT, TIME_STEPS)
         assert tuple(res.shape) == (1000, 2)
-    
+
     def test_main(self):
         coord_list = []
         for i in range(259):
-            coord_list.append(tuple([i, i*i]))
+            coord_list.append(tuple([i, i * i]))
         index = 259
         start = 205
         end = 253
@@ -66,7 +66,7 @@ class TestGen(TestCase):
             gen.on_move(0, 0)
         except NameError as e:
             assert str(e) == error_text
-    
+
     def test_on_click(self):
         error_text = "name 'coord_list' is not defined"
         try:

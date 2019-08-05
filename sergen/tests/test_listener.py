@@ -5,6 +5,7 @@ from unittest import TestCase
 from sergen import gen, listener
 
 class TestListener(TestCase):
+
     def test_listen(self):
         error_text = "Found no compatible display."
         try:
