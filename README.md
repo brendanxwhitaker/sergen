@@ -4,6 +4,8 @@ A library for rapid automatic generation of sample time series data via mouse in
 
 Requires a machine with a display and support for mouse input. 
 
+![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+
 ### Generating time series
 
 To generate time series, run the command:
