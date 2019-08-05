@@ -13,7 +13,7 @@ def create_subplot(**kwargs):
     ylabel = kwargs['ylabel'] 
     column_total = kwargs['column_total'] 
     color_index = kwargs['color_index'] 
-    NUM_COLORS = kwargs['NUM_COLORS']
+    num_colors = kwargs['num_colors']
     xlabel = kwargs['xlabel']
     y_axis_label_size = kwargs['y_axis_label_size']
     x_axis_label_size = kwargs['x_axis_label_size']
@@ -52,7 +52,7 @@ def create_subplot(**kwargs):
     
     j = 0
     while color_index < column_total:
-        plt.gca().get_lines()[j].set_color(cm(color_index//NUM_STYLES*float(NUM_STYLES)/NUM_COLORS))
+        plt.gca().get_lines()[j].set_color(cm(color_index//NUM_STYLES*float(NUM_STYLES)/num_colors))
         
         if use_markers:
             plt.gca().get_lines()[j].set_marker(MARKERS[j])
