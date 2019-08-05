@@ -4,7 +4,7 @@ import random
 import numpy as np
 import pandas as pd
 
-from typing import List
+from typing import List, Tuple
 from screeninfo import get_monitors
 
 """
@@ -37,7 +37,7 @@ def on_move(x: int, y: int) -> None:
     sys.stdout.flush()
     index += 1
 
-def on_click(x: int, y: int, button, pressed: bool) -> bool:
+def on_click(x: int, y: int, _, pressed: bool) -> bool:
     global coord_list
     global index
     global start
@@ -64,7 +64,7 @@ def resize(coords: np.ndarray,
            TIME_STEPS: int) -> np.ndarray:
     """Resizes first dim of coordinate array. """
     # Interpolate time series. 
-    if REPEAT:
+    if REPEAT and raw_steps <= TIME_STEPS:
         full_reps = TIME_STEPS // raw_steps
         reps = [coords] * full_reps
         coords = np.concatenate(reps)
@@ -94,11 +94,14 @@ def resize(coords: np.ndarray,
 print("Note: this script requires mouse input.")
 sys.stdout.flush()
 
-def main(RESHAPE: bool, REPEAT: bool, TIME_STEPS: int) -> None:
-    global coord_list
-    global index
-    global start
-    global end
+def main(coord_list: List[Tuple[int]], 
+         index: int, 
+         start: int, 
+         end: int, 
+         RESHAPE: bool, 
+         REPEAT: bool, 
+         TIME_STEPS: int,
+         SAVE_CSV: bool) -> pd.DataFrame:
     coord_list = coord_list[start:end]
     coords = np.array(coord_list)
     raw_steps = coords.shape[0]
@@ -107,23 +110,26 @@ def main(RESHAPE: bool, REPEAT: bool, TIME_STEPS: int) -> None:
     if RESHAPE:
         coords = resize(coords, raw_steps, REPEAT, TIME_STEPS)
 
-    name = input("Enter a path for the saved file (include `.csv`): ")
     coords_df = pd.DataFrame(coords)
     coords_df.columns = ['x', 'y']
     coords_df = coords_df.drop(['x'], 1)
+    height = max(coords[:,1]) 
     for m in get_monitors():
         height = m.height
-        width = m.width
-
+        break   # Get first monitor dims.
     coords_df['y'] = height - coords_df['y']
-    coords_df.to_csv(name, index=False)
+    if SAVE_CSV:
+        name = input("Enter a path for the saved file (include `.csv`): ")
+        coords_df.to_csv(name, index=False)
     print(coords_df)
+    return coords_df
 
 if __name__ == "__main__":
     # Constants.
     RESHAPE = True
     REPEAT = True
     TIME_STEPS = 500
+    SAVE_CSV = True
 
     """
     We use global variables to avoid having
@@ -143,4 +149,4 @@ if __name__ == "__main__":
     import listener
     listener.listen(on_move, on_click)
     print(coord_list)
-    main(RESHAPE, REPEAT, TIME_STEPS)
+    main(coord_list, index, start, end, RESHAPE, REPEAT, TIME_STEPS, SAVE_CSV)
