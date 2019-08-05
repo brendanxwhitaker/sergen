@@ -1,3 +1,4 @@
+import os
 import pytest
 import shutil
 import tempfile
@@ -25,6 +26,7 @@ class TestPlot(TestCase):
                             type=str,
                             default='graphs/',
                             help='Where to save graphs.')
-        args = parser.parse_args(["--filepath", "test.csv", "--graphs_path", tmp_dir])
+        testfile_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),("test.csv"))
+        args = parser.parse_args(["--filepath", testfile_path, "--graphs_path", tmp_dir])
         plot.main(args)
         shutil.rmtree(tmp_dir)
