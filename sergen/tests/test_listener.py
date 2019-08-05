@@ -4,11 +4,6 @@ from unittest import TestCase
 
 from sergen import gen, listener
 
-coord_list = []
-index = 0
-start = 0
-end = 0
-
 class TestListener(TestCase):
     def test_listen(self):
         error_text = "Found no compatible display."
