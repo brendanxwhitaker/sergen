@@ -45,7 +45,7 @@ to generate a `.svg` graph.
 - [x] Make `tests` directory. 
 - [x] Write tests.
 - [x] Write note in README explaining why `gen.py` does not have proper module structure.
-- [ ] Lint. 
+- [x] Lint. 
 - [ ] Add codecov.
 
 Lacks proper python3 module structure by heuristic and for simplicity. 
