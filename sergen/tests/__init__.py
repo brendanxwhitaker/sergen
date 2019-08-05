@@ -1,4 +1,4 @@
 try:
-    from sergen.gen import on_move
-except:
-    from .. import gen
+    from sergen import gen, listener
+except ImportError:
+    from .. import gen, listener
