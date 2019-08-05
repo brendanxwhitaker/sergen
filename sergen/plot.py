@@ -3,6 +3,7 @@ import os
 import math
 import argparse
 
+import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.style as style
 import matplotlib.font_manager as fm
@@ -14,12 +15,13 @@ try:
 except ImportError:
     from sergen import subplot
     from sergen import preprocessing
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name, too-many-locals, too-many-statements
 
 def graph(dfs, ylabels, filename, column_counts, phase, save_path):
-    """ Generate graphs from a list of ``pd.DataFrame`` objects. 
+    """ Generate graphs from a list of ``pd.DataFrame`` objects.
         Then save to file at ``save_path``. """
     # PLOTTING
+    # TODO: Put in ``.json`` config file.
 
     #=================PARAMS=================
     #=================vvvvvv=================
@@ -27,7 +29,6 @@ def graph(dfs, ylabels, filename, column_counts, phase, save_path):
     # Size of ENTIRE PLOT.
     plot_height = 7    # 7.25
     plot_width = 9
-    num_empty_ticks = 0
 
     # x-axis.
     xaxis = 'index'
@@ -75,13 +76,13 @@ def graph(dfs, ylabels, filename, column_counts, phase, save_path):
                               size=legend_size)
 
     print("Path of current file:", os.path.abspath(__file__))
-    """
+
+    # pylint: disable=unused-variable
     ticks_font = matplotlib.font_manager.FontProperties(family='DecimaMonoPro',
                                                         style='normal',
                                                         size=12,
                                                         weight='normal',
                                                         stretch='normal')
-    """
     #=================^^^^^^=================
     #=================PARAMS=================
 
@@ -98,23 +99,23 @@ def graph(dfs, ylabels, filename, column_counts, phase, save_path):
         plt.sca(ax)
         style.use('fivethirtyeight')
         column_total += column_counts[i]
-        graph, color_index = subplot.create_subplot(ax=ax,
-                                                    xaxis=xaxis,
-                                                    yaxis=yaxis,
-                                                    df=df,
-                                                    ylabel=ylabels[i],
-                                                    column_total=column_total,
-                                                    color_index=color_index,
-                                                    num_colors=num_colors,
-                                                    xlabel=xlabel,
-                                                    y_axis_label_size=y_axis_label_size,
-                                                    x_axis_label_size=x_axis_label_size,
-                                                    legend_size=legend_size,
-                                                    tick_label_size=tick_label_size,
-                                                    axis_font=prop3,
-                                                    legend_font=prop4,
-                                                    text_opacity=text_opacity,
-                                                    xaxis_opacity=xaxis_opacity)
+        plot, color_index = subplot.create_subplot(ax=ax,
+                                                   xaxis=xaxis,
+                                                   yaxis=yaxis,
+                                                   df=df,
+                                                   ylabel=ylabels[i],
+                                                   column_total=column_total,
+                                                   color_index=color_index,
+                                                   num_colors=num_colors,
+                                                   xlabel=xlabel,
+                                                   y_axis_label_size=y_axis_label_size,
+                                                   x_axis_label_size=x_axis_label_size,
+                                                   legend_size=legend_size,
+                                                   tick_label_size=tick_label_size,
+                                                   axis_font=prop3,
+                                                   legend_font=prop4,
+                                                   text_opacity=text_opacity,
+                                                   xaxis_opacity=xaxis_opacity)
 
     # add axis labels
     plt.xlabel(xlabel, fontproperties=prop3, fontsize=x_axis_label_size, alpha=text_opacity)
@@ -166,23 +167,23 @@ def graph(dfs, ylabels, filename, column_counts, phase, save_path):
     title_shift_x += title_pad_x
 
     # title
-    graph.text(x=display_left - title_shift_x,
-               y=title_pos_y,
-               transform=yfig_trans,
-               s=title_text,
-               fontproperties=prop2,
-               weight='bold',
-               fontsize=title_fontsize,
-               alpha=text_opacity)
+    plot.text(x=display_left - title_shift_x,
+              y=title_pos_y,
+              transform=yfig_trans,
+              s=title_text,
+              fontproperties=prop2,
+              weight='bold',
+              fontsize=title_fontsize,
+              alpha=text_opacity)
 
     # subtitle, +1 accounts for font size difference in title and subtitle
-    graph.text(x=display_left - title_shift_x + 1,
-               y=subtitle_pos_y,
-               transform=yfig_trans,
-               s=subtitle_text,
-               fontproperties=prop3,
-               fontsize=subtitle_fontsize,
-               alpha=text_opacity)
+    plot.text(x=display_left - title_shift_x + 1,
+              y=subtitle_pos_y,
+              transform=yfig_trans,
+              s=subtitle_text,
+              fontproperties=prop3,
+              fontsize=subtitle_fontsize,
+              alpha=text_opacity)
 
     # adjust position of subplot in figure
     plt.subplots_adjust(top=top)
@@ -222,5 +223,5 @@ if __name__ == '__main__':
                         default='',
                         help='The section to graph. One of \'train\', \'validate\', \'test\'.')
     parser.add_argument('--graphs_path', type=str, default='graphs/', help='Where to save graphs.')
-    args = parser.parse_args()
-    main(args)
+    arguments = parser.parse_args()
+    main(arguments)

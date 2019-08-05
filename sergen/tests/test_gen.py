@@ -54,7 +54,7 @@ class TestGen(TestCase):
         REPEAT = True
         TIME_STEPS = 998
         SAVE_CSV = False
-        df = gen.main(coord_list, index, start, end, RESHAPE, REPEAT, TIME_STEPS, SAVE_CSV)
+        df = gen.main(coord_list, start, end, RESHAPE, REPEAT, TIME_STEPS, SAVE_CSV)
         assert df.shape == (998, 1)
         coords = np.array(coord_list[start:end])
         height = max(coords[:, 1])
