@@ -12,11 +12,11 @@ import matplotlib.style as style
 import matplotlib.font_manager as fm
 import matplotlib.transforms as transforms
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
-import preprocessing
 import subplot
+import preprocessing
 
 
 def graph(dfs, ylabels, filename, column_counts, phase, save_path):
