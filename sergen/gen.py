@@ -4,15 +4,8 @@ import random
 import numpy as np
 import pandas as pd
 
-from typing import List
+from typing import List, Tuple
 from screeninfo import get_monitors
-try:
-    from pynput.mouse import Listener
-except:
-    print("=================================================================")
-    print("Is this machine connected to a display that supports mouse input?")
-    print("=================================================================")
-    raise OSError
 
 """
 DOCSTRING
@@ -36,25 +29,7 @@ Global variables:
         Index of first click release.       
 """
 
-# Constants.
-RESHAPE = True
-REPEAT = True
-TIME_STEPS = 500
-
-# Globals.
-coord_list = []
-index = 0
-start = 0
-end = 0
-
-print("Note: this script requires mouse input.")
-sys.stdout.flush()
-"""
-We use global variables to avoid having
-to peer into ``pynput`` and mess with their
-``on_<event>`` functions. 
-"""
-def on_move(x, y):
+def on_move(x: int, y: int) -> None:
     global coord_list
     global index
     coord_list.append((x, y))
@@ -62,7 +37,7 @@ def on_move(x, y):
     sys.stdout.flush()
     index += 1
 
-def on_click(x, y, button, pressed):
+def on_click(x: int, y: int, _, pressed: bool) -> bool:
     global coord_list
     global index
     global start
@@ -83,22 +58,13 @@ def on_click(x, y, button, pressed):
         # Stop listener
         return False
 
-# Collect events until released
-with Listener(
-        on_move=on_move,
-        on_click=on_click,
-        on_scroll=None,
-        suppress=False) as listener:
-    listener.join()
-
-coord_list = coord_list[start:end]
-coords = np.array(coord_list)
-raw_steps = coords.shape[0]
-coords = coords.astype(float)
-
-if RESHAPE:
+def resize(coords: np.ndarray, 
+           raw_steps: int, 
+           REPEAT: bool, 
+           TIME_STEPS: int) -> np.ndarray:
+    """Resizes first dim of coordinate array. """
     # Interpolate time series. 
-    if REPEAT:
+    if REPEAT and raw_steps <= TIME_STEPS:
         full_reps = TIME_STEPS // raw_steps
         reps = [coords] * full_reps
         coords = np.concatenate(reps)
@@ -123,14 +89,64 @@ if RESHAPE:
         coords = np.delete(coords, del_loc, 0)
         raw_steps = coords.shape[0]
 
-name = input("Enter a path for the saved file (include `.csv`): ")
-coords_df = pd.DataFrame(coords)
-coords_df.columns = ['x', 'y']
-coords_df = coords_df.drop(['x'], 1)
-for m in get_monitors():
-    height = m.height
-    width = m.width
+    return coords
 
-coords_df['y'] = height - coords_df['y']
-coords_df.to_csv(name, index=False)
-print(coords_df)
+print("Note: this script requires mouse input.")
+sys.stdout.flush()
+
+def main(coord_list: List[Tuple[int]], 
+         index: int, 
+         start: int, 
+         end: int, 
+         RESHAPE: bool, 
+         REPEAT: bool, 
+         TIME_STEPS: int,
+         SAVE_CSV: bool) -> pd.DataFrame:
+    coord_list = coord_list[start:end]
+    coords = np.array(coord_list)
+    raw_steps = coords.shape[0]
+    coords = coords.astype(float)
+
+    if RESHAPE:
+        coords = resize(coords, raw_steps, REPEAT, TIME_STEPS)
+
+    coords_df = pd.DataFrame(coords)
+    coords_df.columns = ['x', 'y']
+    coords_df = coords_df.drop(['x'], 1)
+    height = max(coords[:,1]) 
+    for m in get_monitors():
+        height = m.height
+        break   # Get first monitor dims.
+    coords_df['y'] = height - coords_df['y']
+    if SAVE_CSV:
+        name = input("Enter a path for the saved file (include `.csv`): ")
+        coords_df.to_csv(name, index=False)
+    print(coords_df)
+    return coords_df
+
+if __name__ == "__main__":
+    # Constants.
+    RESHAPE = True
+    REPEAT = True
+    TIME_STEPS = 500
+    SAVE_CSV = True
+
+    """
+    We use global variables to avoid having
+    to peer into ``pynput`` and mess with their
+    ``on_<event>`` functions. 
+    """
+    # Globals.
+    global coord_list
+    global index
+    global start
+    global end
+    coord_list = []
+    index = 0
+    start = 0
+    end = 0
+
+    import listener
+    listener.listen(on_move, on_click)
+    print(coord_list)
+    main(coord_list, index, start, end, RESHAPE, REPEAT, TIME_STEPS, SAVE_CSV)

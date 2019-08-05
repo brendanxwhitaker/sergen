@@ -12,11 +12,15 @@ import matplotlib.style as style
 import matplotlib.font_manager as fm
 import matplotlib.transforms as transforms
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
-import preprocessing
-import subplot
+try:
+    import subplot
+    import preprocessing
+except ImportError:
+    from sergen import subplot
+    from sergen import preprocessing
 
 
 def graph(dfs, ylabels, filename, column_counts, phase, save_path):
@@ -69,10 +73,13 @@ def graph(dfs, ylabels, filename, column_counts, phase, save_path):
     banner_text_size = 14
 
     # Import font. 
-    prop = fm.FontProperties(fname='fonts/DecimaMonoPro.ttf')
-    prop2 = fm.FontProperties(fname='fonts/apercu_medium_pro.otf')
-    prop3 = fm.FontProperties(fname='fonts/Apercu.ttf')
-    prop4 = fm.FontProperties(fname='fonts/Apercu.ttf', size=legend_size)
+    cur_file_dir = os.path.dirname(os.path.abspath(__file__))
+    prop = fm.FontProperties(fname=os.path.join(cur_file_dir, 'fonts/DecimaMonoPro.ttf'))
+    prop2 = fm.FontProperties(fname=os.path.join(cur_file_dir, 'fonts/apercu_medium_pro.otf'))
+    prop3 = fm.FontProperties(fname=os.path.join(cur_file_dir, 'fonts/Apercu.ttf'))
+    prop4 = fm.FontProperties(fname=os.path.join(cur_file_dir, 'fonts/Apercu.ttf'), size=legend_size)
+
+    print("Path of current file:", os.path.abspath(__file__))
 
     """
     ticks_font = matplotlib.font_manager.FontProperties(family='DecimaMonoPro', 
@@ -196,7 +203,7 @@ def graph(dfs, ylabels, filename, column_counts, phase, save_path):
     plt.savefig(save_path)
    
 def main(args):
-    GRAPHS_PATH = 'graphs/'
+    GRAPHS_PATH = args.graphs_path
     assert os.path.isdir(GRAPHS_PATH)
     filename = os.path.basename(args.filepath)
     filename_no_ext = filename.split('.')[0]
@@ -219,5 +226,6 @@ if __name__ == '__main__':
     parser.add_argument('--filepath', type=str, help='File to parse and graph.', required=True)
     parser.add_argument('--format', type=str, default='csv', help='`csv` or `json`.')
     parser.add_argument('--phase', type=str, default='', help='The section to graph. One of \'train\', \'validate\', \'test\'.') 
+    parser.add_argument('--graphs_path', type=str, default='graphs/', help='Where to save graphs.') 
     args = parser.parse_args()
     main(args)
