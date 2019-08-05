@@ -1,4 +1,7 @@
+""" Pynput listener to grab screen coordinates. """
+
 def listen(on_move, on_click):
+    """ Listen with ``on_move`` and ``on_click`` functions. """
     try:
         from pynput.mouse import Listener
     except:
@@ -7,9 +10,5 @@ def listen(on_move, on_click):
         print("=================================================================")
         raise OSError("Found no compatible display.")
     # Collect events until released
-    with Listener(
-            on_move=on_move,
-            on_click=on_click,
-            on_scroll=None,
-            suppress=False) as listener:
+    with Listener(on_move=on_move, on_click=on_click, on_scroll=None, suppress=False) as listener:
         listener.join()
