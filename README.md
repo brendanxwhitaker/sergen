@@ -50,7 +50,7 @@ to generate a `.svg` graph.
 - [x] Write tests.
 - [x] Write note in README explaining why `gen.py` does not have proper module structure.
 - [x] Lint. 
-- [ ] Add codecov.
+- [x] Add codecov.
 
 Lacks proper python3 module structure by heuristic and for simplicity. 
 
