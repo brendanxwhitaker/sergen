@@ -1,5 +1,7 @@
 # sergen
 
+[![codecov](https://codecov.io/gh/brendanxwhitaker/sergen/branch/master/graph/badge.svg)](https://codecov.io/gh/brendanxwhitaker/sergen) 
+
 A library for rapid automatic generation of sample time series data via mouse input. 
 
 Requires a machine with a display and support for mouse input. 
